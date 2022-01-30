@@ -74,30 +74,11 @@ class Board
             rawValue2 = mux.read(2);
             percentageValue1 = map(rawValue1, dryValue, wetValue, percentageDryValue, percentageWetValue);
             percentageValue2 = map(rawValue2, dryValue, wetValue, percentageDryValue, percentageWetValue);
+                
+            delay(1000);
 
             Pump(percentageValue1, temperature, RELAY1);
             Pump(percentageValue2, temperature, RELAY2);
-
-            Serial.print("suhu: ");
-            Serial.print(temperature);
-            Serial.print(" °C");
-            Serial.print(" | ");
-
-            Serial.print("ch.1: ");
-            Serial.print(rawValue1);
-            Serial.print(" (");
-            Serial.print(percentageValue1);
-            Serial.print("%");
-            Serial.print(")");
-            Serial.print(" | ");
-            Serial.print("ch.2: ");
-            Serial.print(rawValue2);
-            Serial.print(" (");
-            Serial.print(percentageValue2);
-            Serial.print("%");
-            Serial.print(")");
-            Serial.print("\n");
-
 
         }
 };

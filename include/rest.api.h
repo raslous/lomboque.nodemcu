@@ -38,10 +38,30 @@ class API
         static void Loop()
         {
             doc["temperature"] = temperature;
-            doc["humidity"][0] = percentageValue1;
-            doc["humidity"][1] = percentageValue2;
+            doc["humidities"][0] = percentageValue1;
+            doc["humidities"][1] = percentageValue2;
 
             serializeJson(doc, json_string);
+
+            Serial.print("suhu: ");
+            Serial.print(temperature);
+            Serial.print(" °C");
+            Serial.print(" | ");
+
+            Serial.print("ch.1: ");
+            Serial.print(rawValue1);
+            Serial.print(" (");
+            Serial.print(percentageValue1);
+            Serial.print("%");
+            Serial.print(")");
+            Serial.print(" | ");
+            Serial.print("ch.2: ");
+            Serial.print(rawValue2);
+            Serial.print(" (");
+            Serial.print(percentageValue2);
+            Serial.print("%");
+            Serial.print(")");
+            Serial.print("\n");
         }
 
 };
