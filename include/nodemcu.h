@@ -11,7 +11,7 @@
 #define EN D4
 #define SIG A0
 
-#define DHTPIN D4
+#define DHTPIN D5
 #define DHTTYPE DHT22
 
 #define RELAY1 D7
@@ -42,7 +42,7 @@ class Board
     private:
         static void Pump(int humidity, float temperature, u_int8_t relay)
         {
-            if(humidity <= dryPercentageLimit || temperature >= temperatureLimit)
+            if(humidity <= dryPercentageLimit && temperature >= temperatureLimit)
             {
                 digitalWrite(relay, LOW);
                 delay(5000);
@@ -97,7 +97,6 @@ class Board
             Serial.print("%");
             Serial.print(")");
             Serial.print("\n");
-            delay(1000);
 
 
         }

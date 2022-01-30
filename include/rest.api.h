@@ -4,6 +4,7 @@
 #include <ArduinoJson.h>
 #include <server.config.h>
 #include <webserver.h>
+#include <nodemcu.h>
 
 DynamicJsonDocument doc(256);
 char json_string[256];
@@ -36,7 +37,11 @@ class API
 
         static void Loop()
         {
+            doc["temperature"] = temperature;
+            doc["humidity"][0] = percentageValue1;
+            doc["humidity"][1] = percentageValue2;
 
+            serializeJson(doc, json_string);
         }
 
 };
