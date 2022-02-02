@@ -63,6 +63,17 @@ class Board
         {
             if(isWaiting)
             {
+                int second = start + duration - timer;
+                Serial.print("menunggu: ");
+                Serial.print(second/1000);
+                Serial.print(" detik");
+                Serial.print(" | ");
+                Serial.print("(");
+                Serial.print((float) second/1000/60);
+                Serial.print(" menit");
+                Serial.print(")");
+                Serial.println("\n");
+
                 timer = millis();
                 if(timer >= start + duration)
                 {
