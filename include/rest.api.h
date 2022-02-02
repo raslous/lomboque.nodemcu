@@ -37,9 +37,9 @@ class API
 
         static void Loop()
         {
-            doc["temperature"] = temperature;
-            doc["humidities"][0] = percentageValue1;
-            doc["humidities"][1] = percentageValue2;
+            doc["suhu"] = temperature;
+            doc["kelembaban"][0] = percentageValue1;
+            doc["kelembaban"][1] = percentageValue2;
 
             serializeJson(doc, json_string);
 

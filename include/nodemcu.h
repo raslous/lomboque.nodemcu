@@ -34,19 +34,40 @@ int percentageValue2 = 0;
 
 float temperature = 0;
 
-float temperatureLimit = 37;
+float temperatureLimit = 35;
 int dryPercentageLimit = 65;
+
+bool isWaiting = false;
+unsigned long start;
+unsigned long timer;
+unsigned long duration = 1000 * 60;
 
 class Board
 {
     private:
         static void Pump(int humidity, float temperature, u_int8_t relay)
         {
-            if(humidity <= dryPercentageLimit && temperature >= temperatureLimit)
+            bool ready = humidity <= dryPercentageLimit && temperature >= temperatureLimit;
+
+            if(ready && !isWaiting)
             {
                 digitalWrite(relay, LOW);
                 delay(5000);
                 digitalWrite(relay, HIGH);
+                isWaiting = true;
+                start = millis();
+            }
+        }
+
+        static void TimerManager()
+        {
+            if(isWaiting)
+            {
+                timer = millis();
+                if(timer >= start + duration)
+                {
+                    isWaiting = false;
+                }
             }
         }
 
@@ -62,7 +83,7 @@ class Board
             pinMode(RELAY2, OUTPUT);
 
             digitalWrite(RELAY1, HIGH);
-            digitalWrite(RELAY2, HIGH);
+            digitalWrite(RELAY2, LOW);
 
         }
 
@@ -78,8 +99,9 @@ class Board
             delay(1000);
 
             Pump(percentageValue1, temperature, RELAY1);
-            Pump(percentageValue2, temperature, RELAY2);
+            //Pump(percentageValue2, temperature, RELAY2);
 
+            TimerManager();
         }
 };
 
